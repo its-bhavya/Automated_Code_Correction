@@ -3,6 +3,8 @@ from load_testdata import load_json_testcases
 
 if pytest.use_correct:
     from correct_python_programs.max_sublist_sum import max_sublist_sum
+elif pytest.use_fixed:
+    from fixed_programs.max_sublist_sum import max_sublist_sum
 else:
     from python_programs.max_sublist_sum import max_sublist_sum
 

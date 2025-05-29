@@ -3,6 +3,8 @@ from load_testdata import load_json_testcases
 
 if pytest.use_correct:
     from correct_python_programs.find_in_sorted import find_in_sorted
+elif pytest.use_fixed:
+    from fixed_programs.find_in_sorted import find_in_sorted
 else:
     from python_programs.find_in_sorted import find_in_sorted
 

@@ -3,6 +3,8 @@ from node import Node
 
 if pytest.use_correct:
     from correct_python_programs.detect_cycle import detect_cycle
+elif pytest.use_fixed:
+    from fixed_programs.detect_cycle import detect_cycle
 else:
     from python_programs.detect_cycle import detect_cycle
  

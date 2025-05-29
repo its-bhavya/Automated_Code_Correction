@@ -3,6 +3,8 @@ from load_testdata import load_json_testcases
 
 if pytest.use_correct:
     from correct_python_programs.powerset import powerset
+elif pytest.use_fixed:
+    from fixed_programs.powerset import powerset
 else:
     from python_programs.powerset import powerset
 

@@ -3,6 +3,8 @@ from load_testdata import load_json_testcases
 
 if pytest.use_correct:
     from correct_python_programs.to_base import to_base
+elif pytest.use_fixed:
+    from fixed_programs.to_base import to_base
 else:
     from python_programs.to_base import to_base
 

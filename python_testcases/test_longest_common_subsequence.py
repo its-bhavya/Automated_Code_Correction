@@ -3,6 +3,8 @@ from load_testdata import load_json_testcases
 
 if pytest.use_correct:
     from correct_python_programs.longest_common_subsequence import longest_common_subsequence
+elif pytest.use_fixed:
+    from fixed_programs.longest_common_subsequence import longest_common_subsequence
 else:
     from python_programs.longest_common_subsequence import longest_common_subsequence
 

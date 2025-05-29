@@ -3,9 +3,10 @@ from node import Node
 
 if pytest.use_correct:
     from correct_python_programs.breadth_first_search import breadth_first_search
+elif pytest.use_fixed:
+    from fixed_programs.breadth_first_search import breadth_first_search
 else:
     from python_programs.breadth_first_search import breadth_first_search
-
 
 def test1():
     """Case 1: Strongly connected graph

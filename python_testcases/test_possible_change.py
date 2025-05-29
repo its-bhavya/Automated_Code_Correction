@@ -3,6 +3,8 @@ from load_testdata import load_json_testcases
 
 if pytest.use_correct:
     from correct_python_programs.possible_change import possible_change
+elif pytest.use_fixed:
+    from fixed_programs.possible_change import possible_change
 else:
     from python_programs.possible_change import possible_change
 

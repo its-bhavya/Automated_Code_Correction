@@ -3,6 +3,8 @@ from load_testdata import load_json_testcases
 
 if pytest.use_correct:
     from correct_python_programs.levenshtein import levenshtein
+elif pytest.use_fixed:
+    from fixed_programs.levenshtein import levenshtein
 else:
     from python_programs.levenshtein import levenshtein
 

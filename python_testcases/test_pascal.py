@@ -3,6 +3,8 @@ from load_testdata import load_json_testcases
 
 if pytest.use_correct:
     from correct_python_programs.pascal import pascal
+elif pytest.use_fixed:
+    from fixed_programs.pascal import pascal
 else:
     from python_programs.pascal import pascal
 

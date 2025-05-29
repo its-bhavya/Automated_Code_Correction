@@ -3,6 +3,8 @@ from load_testdata import load_json_testcases
 
 if pytest.use_correct:
     from correct_python_programs.next_palindrome import next_palindrome
+elif pytest.use_fixed:
+    from fixed_programs.next_palindrome import next_palindrome
 else:
     from python_programs.next_palindrome import next_palindrome
 

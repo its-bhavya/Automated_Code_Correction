@@ -1,25 +1,19 @@
-# make classes for extra class# make version for proper programs
-es and then just parse them in
+#make classes for extra class# make version for proper programs
+#es and then just parse them in
  
 import copy
 import json
 import sys
 import subprocess
 import types
+import pytest
 
-def py_try(algo, *args, correct=False,fixed=False):
-    if not fixed:
-        module = __import__("python_programs."+algo)
-    else:
-        if not correct: module = __import__("fixed_programs."+algo)
-        else: module = __import__("correct_python_programs."+algo)
-
-    fx = getattr(module, algo)
-
-    try:
-        return getattr(fx,algo)(*args)
-    except:
-        return sys.exc_info()
+def program(correct=False,fixed=False):
+    if not fixed and not correct:
+        flag = ''
+    elif fixed and not correct: flag = "--fixed"
+    else: flag = "--correct"
+    return flag
 
 
 def prettyprint(o):
@@ -28,56 +22,28 @@ def prettyprint(o):
     else:
         return(str(o))
 
-graph_based = ["breadth_first_search",
-               "depth_first_search",
-               "detect_cycle",
-               "minimum_spanning_tree",
-               "reverse_linked_list",
-               "shortest_path_length",
-               "shortest_path_lengths",
-               "shortest_paths",
-               "topological_ordering"
-              ]
 
 if __name__ == "__main__":
     algo = sys.argv[1]
+    working_file = "python_testcases/"+"test_"+algo+".py"
 
-    if algo in graph_based:
-        print("Correct Python:")
-        correct_module = __import__("correct_python_programs."+algo+"_test")
-        correct_fx = getattr(correct_module, algo+"_test")
-        getattr(correct_fx,"main")()
-        print()
+    #Check buggy Python code
+    if len(sys.argv)<3:
+        print("**Buggy Program**")
+        subprocess.run(["python", "-m", "pytest --tb=short -q", working_file])
 
-        print("Bad Python:")
-        test_module = __import__("python_programs."+algo+"_test")
-        test_fx = getattr(test_module, algo+"_test")
-        try:
-            getattr(test_fx,"main")()
-        except:
-            print(sys.exc_info())
-        print()
+    else: 
+        flag = sys.argv[2]
 
-    else:
-        working_file = open("json_testcases/"+algo+".json", 'r')
+        if flag=="--fixed":
+            # check Fixed Python code (by agent)
+            print("**Fixed Program**")
+            subprocess.run(["python", "-m", "pytest", flag, working_file])
 
-        for line in working_file:
-            py_testcase = json.loads(line)
-            print(py_testcase)
-            test_in, test_out = py_testcase
-            if not isinstance(test_in, list):
-                # input is required to be a list, as multiparameter algos need to deconstruct a list of parameters
-                # should fix in testcases, force all inputs to be list of inputs
-                test_in = [test_in]
-                # unsure how to make immutable; previous versions just used copy.deepcopy
+        
+        if flag=="--correct":    
+            ## check correct Python code (already given)
+            print("**Correct Program**")
+            subprocess.run(["python", "-m", "pytest", flag, working_file])
 
-            # check good Python version
-            py_out_good = py_try(algo, *copy.deepcopy(test_in), correct=True)
-            print("Correct Python: " + prettyprint(py_out_good))
-
-            # check bad Python version
-            py_out_test = py_try(algo, *copy.deepcopy(test_in))
-            print("Bad Python: " + prettyprint(py_out_test))
-
-            py_out_fixed = py_try(algo, *copy.deepcopy(test_in), fixed=True)
-            print("Fixed Python: " + prettyprint(py_out_fixed))
+    

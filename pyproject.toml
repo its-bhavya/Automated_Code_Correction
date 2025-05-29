@@ -6,5 +6,7 @@ readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
     "dspy>=2.6.24",
+    "mlflow>=2.22.0",
+    "pytest>=8.3.5",
     "python-dotenv>=1.1.0",
 ]

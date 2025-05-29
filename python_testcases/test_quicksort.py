@@ -3,6 +3,8 @@ from load_testdata import load_json_testcases
 
 if pytest.use_correct:
     from correct_python_programs.quicksort import quicksort
+elif pytest.use_fixed:
+    from fixed_programs.quicksort import quicksort
 else:
     from python_programs.quicksort import quicksort
 

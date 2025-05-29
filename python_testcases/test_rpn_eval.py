@@ -3,6 +3,8 @@ from load_testdata import load_json_testcases
 
 if pytest.use_correct:
     from correct_python_programs.rpn_eval import rpn_eval
+elif pytest.use_fixed:
+    from fixed_programs.rpn_eval import rpn_eval
 else:
     from python_programs.rpn_eval import rpn_eval
 

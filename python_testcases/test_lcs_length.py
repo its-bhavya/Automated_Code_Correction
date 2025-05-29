@@ -3,6 +3,8 @@ from load_testdata import load_json_testcases
 
 if pytest.use_correct:
     from correct_python_programs.lcs_length import lcs_length
+elif pytest.use_fixed:
+    from fixed_programs.lcs_length import lcs_length
 else:
     from python_programs.lcs_length import lcs_length
 
