@@ -49,8 +49,6 @@ Integration with MLflow allowed automatic logging of traces from DSPy’s compil
 
 Each corrected program, if successful, was stored separately in a fixed_programs/ folder. This modular setup ensured clean separation between raw, fixed, and tested versions, making the entire system easy to debug, extend, and benchmark.
 
-Here’s a detailed **Results** section draft based on your metrics and test outcomes:
-
 ---
 
 ### **Results**
