@@ -26,7 +26,6 @@ These hurdles did slow down the progress at times, but working through them help
 ## Approach
 
 ### Basic Workflow
-![Uploading ChatGPT Image May 29, 2025, 11_57_45 PM.png…]()
 
 Sample Output
 ![Screenshot 2025-05-29 235256](https://github.com/user-attachments/assets/e20e2d0b-867e-4e33-bc32-ea1bb71a88af)
@@ -48,3 +47,45 @@ Integration with MLflow allowed automatic logging of traces from DSPy’s compil
 
 
 Each corrected program, if successful, was stored separately in a fixed_programs/ folder. This modular setup ensured clean separation between raw, fixed, and tested versions, making the entire system easy to debug, extend, and benchmark.
+
+Here’s a detailed **Results** section draft based on your metrics and test outcomes:
+
+---
+
+### **Results**
+
+The performance of the automated bug-fixing agent was evaluated across a benchmark suite of 40 Python programs, each containing a known one-line bug. The assessment focused on the quality of the fixes, the number of test cases passed post-repair, and the executability of the generated code.
+
+#### **1. Overall Performance**
+
+| Metric                                            | Count / Value   |
+| ------------------------------------------------- | --------------- |
+| Total buggy programs tested                       | 40              |
+| Programs passing **all** test cases (fully fixed) | 28              |
+| Programs with **partial improvement**             | 3               |
+| Programs with **no improvement**                  | 3               |
+| Programs with **non-executable output**           | 6               |
+| Executable programs generated                     | 34              |
+| Total repair success rate (fully fixed)           | **70%** (28/40) |
+| Total executable fix rate                         | **85%** (34/40) |
+
+#### **2. Classification of Outputs**
+
+* **Fully Fixed**: 28 programs had all their test cases passed, indicating a complete and correct one-line repair by the LLM.
+* **Partially Fixed**: 3 programs improved in performance, passing more test cases than the original buggy versions but not achieving full correctness.
+* **No Change**: 3 programs performed identically to the buggy baseline — the fix did not improve or degrade results.
+* **Non-Executable Outputs**: 6 generated outputs contained formatting issues like Markdown backticks or code blocks, rendering them untestable.
+
+#### **3. Error Analysis**
+
+* **False Positives**: None observed — programs did not falsely pass test cases they weren’t supposed to.
+* **False Negatives**: Some correct-looking code snippets wrapped in Markdown syntax led to false negatives during execution due to unparseable formatting.
+
+#### **4. Observations**
+
+* Even minor prompt adjustments had a significant impact on output quality.
+* Markdown artifacts consistently caused execution failures despite syntactically correct code inside.
+* The system’s repair capability was notably strong for standard algorithmic patterns, but less consistent for graph-based logic.
+
+
+
