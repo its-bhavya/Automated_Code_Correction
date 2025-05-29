@@ -28,7 +28,7 @@ These hurdles did slow down the progress at times, but working through them help
 ### Basic Workflow
 ![flowchart](https://github.com/user-attachments/assets/abf86a11-3341-4082-8bf8-b984350d2919)
 
-Sample Output
+### Sample Output
 ![Screenshot 2025-05-29 235256](https://github.com/user-attachments/assets/e20e2d0b-867e-4e33-bc32-ea1bb71a88af)
 
 The method centers around a self-contained fix-and-validate pipeline that uses DSPy to connect a large language model (LLM) to a buggy Python program and return a corrected version that passes all test cases. The core principle: identify a single-line fault, repair it while preserving algorithmic logic, and verify the fix via automated testing.
