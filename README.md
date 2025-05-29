@@ -23,7 +23,10 @@ Also, PyTest produced very verbose outputs, way too much to look through every t
 
 These hurdles did slow down the progress at times, but working through them helped me understand the testing pipeline better and made the system more reliable.
 
-### Approach
+## Approach
+
+### Basic Workflow
+![Uploading ChatGPT Image May 29, 2025, 11_57_45 PM.png…]()
 
 Sample Output
 ![Screenshot 2025-05-29 235256](https://github.com/user-attachments/assets/e20e2d0b-867e-4e33-bc32-ea1bb71a88af)
