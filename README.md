@@ -10,3 +10,15 @@ Throughout the project, I learned that the quality of the prompts play a huge ro
 Despite the problems, the agent performed well. It was able to fully fix 28 out of 40 programs, passing all their tests. Other programs showed improvement, passing more tests than their buggy versions, though not all. 
 
 This shows that LLMs hold significant promise for automating code debugging and repair.
+
+
+### Backlogs
+At the start, I had very little experience with program testing, especially using PyTest. Understanding how the test harness worked and how test cases were organized took me some time. It wasn’t straightforward at first, and I had to dig into the documentation and experiment a lot.
+
+One tricky part was with the graph-based programs. They didn’t have proper JSON test cases in the original setup. Because of this, it was hard to tell how many test cases actually passed or failed for those. To fix this, I ended up modifying the test harness. I incorporated all the test cases, including those for graph programs, by using a more complete directory of Python test cases. This change helped make the testing consistent across all programs.
+
+Another big challenge was that the language model sometimes output the fixed code inside markdown or with backticks around it. Even though the code itself was correct, this formatting made it impossible to run, so zero tests passed for those cases. I tried tweaking the prompts several times to fix this, but the problem never fully went away. Still, I was able to reduce the issue enough to salvage many of the fixes.
+
+Also, PyTest produced very verbose outputs, way too much to look through every time. To handle that, I wrote some parsing code to pull out just the key numbers: how many tests passed and how many failed. This way, I could get a quick summary without sifting through pages of logs.
+
+These hurdles did slow down the progress at times, but working through them helped me understand the testing pipeline better and made the system more reliable.
