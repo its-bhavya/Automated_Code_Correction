@@ -22,3 +22,26 @@ Another big challenge was that the language model sometimes output the fixed cod
 Also, PyTest produced very verbose outputs, way too much to look through every time. To handle that, I wrote some parsing code to pull out just the key numbers: how many tests passed and how many failed. This way, I could get a quick summary without sifting through pages of logs.
 
 These hurdles did slow down the progress at times, but working through them helped me understand the testing pipeline better and made the system more reliable.
+
+### Approach
+
+Sample Output
+![Screenshot 2025-05-29 235256](https://github.com/user-attachments/assets/e20e2d0b-867e-4e33-bc32-ea1bb71a88af)
+
+The method centers around a self-contained fix-and-validate pipeline that uses DSPy to connect a large language model (LLM) to a buggy Python program and return a corrected version that passes all test cases. The core principle: identify a single-line fault, repair it while preserving algorithmic logic, and verify the fix via automated testing.
+
+The agent is built using dspy, with a signature (FixBuggyProgram) that takes buggy_code as input and outputs fixed_code. The objective is to make minimal changes, retain the core structure, and output only executable Python code, with no markdown, backticks, or explanations.
+
+A CodeFixer module wraps the prediction logic and is used by a fix_and_test() function, which automates the entire sequence: loading buggy files, generating a fix, saving the modified version, and running it through a validation step.
+
+The validation relies on a custom tester.py script, tailored to handle varied test structures. Initially, issues arose due to incomplete test support — especially for graph-based algorithms that lacked JSON definitions. To address this, the test harness was refactored to uniformly fetch test cases from the python_testcases/ directory. This ensured that even edge cases, including recursive graph traversals and input-driven algorithms, were handled seamlessly by the same PyTest runner.
+
+One key issue stemmed from the formatting of LLM output. Often, the model wrapped code in triple backticks (```) or added markdown-like headers, which rendered the scripts non-executable. This behavior broke the validation loop, since even technically correct code did not execute. Stripping markdown formatting post-inference and tweaking the prompt instructions helped reduce—but not fully eliminate—this problem.
+
+The fix-and-test loop executed programmatically, with result summaries extracted directly from PyTest’s output. Rather than dump verbose logs for every test run, the pipeline parsed lines containing "Passed: x/y" and surfaced concise pass/fail ratios. This not only sped up debugging but also provided fast feedback when running the agent across 40+ programs in batch mode.
+
+Integration with MLflow allowed automatic logging of traces from DSPy’s compile step, aiding future evaluation or fine-tuning. While no training was involved (the model used was gemini-2.0-flash via API), tracking prompt-output pairs ensured traceability and reproducibility. MLFlow helped track the system prompt that DSPy created based on the signature and input/output field description. 
+![Screenshot 2025-05-29 235609](https://github.com/user-attachments/assets/512326e1-1361-4541-9206-bf1fc179630e)
+
+
+Each corrected program, if successful, was stored separately in a fixed_programs/ folder. This modular setup ensured clean separation between raw, fixed, and tested versions, making the entire system easy to debug, extend, and benchmark.
