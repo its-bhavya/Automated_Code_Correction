@@ -26,6 +26,7 @@ These hurdles did slow down the progress at times, but working through them help
 ## Approach
 
 ### Basic Workflow
+![flowchart](https://github.com/user-attachments/assets/abf86a11-3341-4082-8bf8-b984350d2919)
 
 Sample Output
 ![Screenshot 2025-05-29 235256](https://github.com/user-attachments/assets/e20e2d0b-867e-4e33-bc32-ea1bb71a88af)
